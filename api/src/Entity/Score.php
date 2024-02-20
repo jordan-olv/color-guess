@@ -16,27 +16,16 @@ class Score
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 15)]
-    private ?string $pseudo = null;
-
     #[ORM\Column]
     private ?int $point = null;
+
+    #[ORM\ManyToOne(inversedBy: 'scores')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo(string $pseudo): static
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
     }
 
     public function getPoint(): ?int
@@ -47,6 +36,18 @@ class Score
     public function setPoint(int $point): static
     {
         $this->point = $point;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
